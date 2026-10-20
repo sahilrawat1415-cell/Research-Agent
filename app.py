@@ -1,6 +1,26 @@
+import os
 import re
 import time
 import streamlit as st
+
+# TEMPORARY: Check whether API keys are available
+st.write(
+    "Groq key configured:",
+    bool(os.getenv("GROQ_API_KEY"))
+)
+
+st.write(
+    "Tavily key configured:",
+    bool(os.getenv("TAVILY_API_KEY"))
+)
+
+from agents import (
+    build_reader_agent,
+    run_search,
+    writer_chain,
+    critic_chain,
+    invoke_with_retry,
+)
 
 from agents import (
     build_reader_agent,
