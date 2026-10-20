@@ -16,6 +16,24 @@ load_dotenv()
 if not os.getenv("GROQ_API_KEY"):
     raise EnvironmentError("GROQ_API_KEY is missing. Add it to your .env file.")
 
+from groq import Groq
+
+# Test the exact Groq key available to the deployed app.
+try:
+    diagnostic_client = Groq(
+        api_key=os.environ["GROQ_API_KEY"]
+    )
+    diagnostic_client.models.list()
+
+    print("DIAGNOSTIC: Groq authentication successful.")
+
+except Exception as exc:
+    print(
+        f"DIAGNOSTIC: Groq authentication failed: "
+        f"{type(exc).__name__}: {exc}"
+    )
+    raise
+
 # Keep the Groq model used by your project.
 llm = ChatGroq(
     model="openai/gpt-oss-120b",
